@@ -1,0 +1,66 @@
+﻿<Window x:Class="OOO_Petrovich.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOO_Petrovich"
+        mc:Ignorable="d"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    WindowStyle="None"
+    ResizeMode="NoResize"
+    AllowsTransparency="True"
+    Opacity="0.9"
+    
+    
+    
+    Title="MainWindow" Height="450" Width="400" MinHeight="450" MinWidth="400" MaxHeight="450" MaxWidth="400">
+    <Grid Opacity="1" Background="DarkOrange">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="OrangeRed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="47*"/>
+                <ColumnDefinition Width="353*"/>
+                <ColumnDefinition Width="47*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="18pt" Text="Петрович" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="18pt" FontWeight="Bold" Text="Логин:" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Gadugi"/>
+            <TextBox Grid.Column="1" x:Name="tbLogin" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="18pt" VerticalAlignment="Center" Width="250" Height="40px" TextChanged="tbLogin_TextChanged"/>
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="18pt" FontWeight="Bold" Text="Пароль:" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Gadugi"/>
+            <TextBox Grid.Column="2" x:Name="tbPass" Grid.Row="2" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="18pt" VerticalAlignment="Center" Width="250" Height="40px"/>
+
+        </Grid>
+
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button FontWeight="Bold" Background="LightGoldenrodYellow" Content="Закрыть" FontSize="16pt" Width="150px" Height="50px" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_1"/>
+            <Button FontWeight="Bold" Content="Вход" Background="LightGoldenrodYellow" FontSize="16pt" Width="150px" Height="50px" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Click="Button_Click"/>
+        </Grid>
+
+
+    </Grid>
+
+</Window>

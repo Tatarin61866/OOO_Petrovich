@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище DB_OOO_PetrovichModelContainer" CdmEntityContainer="DB_OOO_PetrovichEntities">
+    <EntitySetMapping Name="category">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="idClient" ColumnName="idClient" />
+          <ScalarProperty Name="clientFullName" ColumnName="clientFullName" />
+          <ScalarProperty Name="clientInformation" ColumnName="clientInformation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="order">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.order">
+        <MappingFragment StoreEntitySet="order">
+          <ScalarProperty Name="idOrder" ColumnName="idOrder" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+          <ScalarProperty Name="orderDescription" ColumnName="orderDescription" />
+          <ScalarProperty Name="orderCount" ColumnName="orderCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+          <ScalarProperty Name="productCost" ColumnName="productCost" />
+          <ScalarProperty Name="productSale" ColumnName="productSale" />
+          <ScalarProperty Name="productMaker" ColumnName="productMaker" />
+          <ScalarProperty Name="productImage" ColumnName="productImage" />
+          <ScalarProperty Name="productDescriptoin" ColumnName="productDescriptoin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="idRole" ColumnName="idRole" />
+          <ScalarProperty Name="roleName" ColumnName="roleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="status">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.status">
+        <MappingFragment StoreEntitySet="status">
+          <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+          <ScalarProperty Name="statusName" ColumnName="statusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="userLogin" ColumnName="userLogin" />
+          <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+          <ScalarProperty Name="userFullName" ColumnName="userFullName" />
+          <ScalarProperty Name="idRole" ColumnName="idRole" />
+          <ScalarProperty Name="idClient" ColumnName="idClient" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="worker">
+      <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.worker">
+        <MappingFragment StoreEntitySet="worker">
+          <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+          <ScalarProperty Name="workerFullName" ColumnName="workerFullName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

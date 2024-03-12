@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DB_OOO_PetrovichModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="idCategory" />
+          </Key>
+          <Property Name="idCategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="idClient" />
+          </Key>
+          <Property Name="idClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientFullName" Type="nvarchar" MaxLength="80" />
+          <Property Name="clientInformation" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="idOrder" />
+          </Key>
+          <Property Name="idOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="idProduct" Type="int" Nullable="false" />
+          <Property Name="idWorker" Type="int" Nullable="false" />
+          <Property Name="orderDate" Type="date" />
+          <Property Name="idStatus" Type="int" />
+          <Property Name="orderDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="orderCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCategory" Type="int" Nullable="false" />
+          <Property Name="productCost" Type="int" Nullable="false" />
+          <Property Name="productSale" Type="int" />
+          <Property Name="productMaker" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="productImage" Type="nvarchar" MaxLength="255" />
+          <Property Name="productDescriptoin" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="idStatus" />
+          </Key>
+          <Property Name="idStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userLogin" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="userPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="userFullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="idRole" Type="int" Nullable="false" />
+          <Property Name="idClient" Type="int" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="idWorker" />
+          </Key>
+          <Property Name="idWorker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="workerFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_order_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_status">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="idStatus" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_category">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="idCategory" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="idCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_client">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="idClient" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_worker_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DB_OOO_PetrovichModelContainer">
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="worker" EntityType="Self.worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_order_product" Association="Self.FK_order_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_status" Association="Self.FK_order_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_user" Association="Self.FK_order_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_category" Association="Self.FK_product_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_client" Association="Self.FK_user_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_role" Association="Self.FK_user_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_worker_user" Association="Self.FK_worker_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="worker" EntitySet="worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_OOO_PetrovichModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="idCategory" />
+          </Key>
+          <Property Name="idCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="product" Relationship="Self.FK_product_category" FromRole="category" ToRole="product" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="idClient" />
+          </Key>
+          <Property Name="idClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientFullName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="clientInformation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_client" FromRole="client" ToRole="user" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="idOrder" />
+          </Key>
+          <Property Name="idOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="idProduct" Type="Int32" Nullable="false" />
+          <Property Name="idWorker" Type="Int32" Nullable="false" />
+          <Property Name="orderDate" Type="DateTime" Precision="0" />
+          <Property Name="idStatus" Type="Int32" />
+          <Property Name="orderDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="orderCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_order_product" FromRole="order" ToRole="product" />
+          <NavigationProperty Name="status" Relationship="Self.FK_order_status" FromRole="order" ToRole="status" />
+          <NavigationProperty Name="user" Relationship="Self.FK_order_user" FromRole="order" ToRole="user" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idCategory" Type="Int32" Nullable="false" />
+          <Property Name="productCost" Type="Int32" Nullable="false" />
+          <Property Name="productSale" Type="Int32" />
+          <Property Name="productMaker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="productImage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="productDescriptoin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="category" Relationship="Self.FK_product_category" FromRole="product" ToRole="category" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_product" FromRole="product" ToRole="order" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_role" FromRole="role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="idStatus" />
+          </Key>
+          <Property Name="idStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_status" FromRole="status" ToRole="order" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userLogin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userFullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <Property Name="idClient" Type="Int32" />
+          <NavigationProperty Name="client" Relationship="Self.FK_user_client" FromRole="user" ToRole="client" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_user" FromRole="user" ToRole="order" />
+          <NavigationProperty Name="role" Relationship="Self.FK_user_role" FromRole="user" ToRole="role" />
+          <NavigationProperty Name="worker" Relationship="Self.FK_worker_user" FromRole="user" ToRole="worker" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="idWorker" />
+          </Key>
+          <Property Name="idWorker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workerFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_worker_user" FromRole="worker" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_product_category">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="idCategory" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="idCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_client">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="idClient" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_status">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="idStatus" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_worker_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="worker">
+              <PropertyRef Name="idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_OOO_PetrovichEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="category" EntityType="Self.category" />
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="order" EntityType="Self.order" />
+          <EntitySet Name="product" EntityType="Self.product" />
+          <EntitySet Name="role" EntityType="Self.role" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="worker" EntityType="Self.worker" />
+          <AssociationSet Name="FK_product_category" Association="Self.FK_product_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_client" Association="Self.FK_user_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_product" Association="Self.FK_order_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_status" Association="Self.FK_order_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_user" Association="Self.FK_order_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_role" Association="Self.FK_user_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_worker_user" Association="Self.FK_worker_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="worker" EntitySet="worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DB_OOO_PetrovichModelContainer" CdmEntityContainer="DB_OOO_PetrovichEntities">
+          <EntitySetMapping Name="category">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="clientFullName" ColumnName="clientFullName" />
+                <ScalarProperty Name="clientInformation" ColumnName="clientInformation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="idOrder" ColumnName="idOrder" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="orderDescription" ColumnName="orderDescription" />
+                <ScalarProperty Name="orderCount" ColumnName="orderCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+                <ScalarProperty Name="productCost" ColumnName="productCost" />
+                <ScalarProperty Name="productSale" ColumnName="productSale" />
+                <ScalarProperty Name="productMaker" ColumnName="productMaker" />
+                <ScalarProperty Name="productImage" ColumnName="productImage" />
+                <ScalarProperty Name="productDescriptoin" ColumnName="productDescriptoin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="statusName" ColumnName="statusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="userLogin" ColumnName="userLogin" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userFullName" ColumnName="userFullName" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="worker">
+            <EntityTypeMapping TypeName="DB_OOO_PetrovichModel.worker">
+              <MappingFragment StoreEntitySet="worker">
+                <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+                <ScalarProperty Name="workerFullName" ColumnName="workerFullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
